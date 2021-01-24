@@ -1,4 +1,4 @@
-$devBorder: 1pt;
+$devBorder: 0pt;
 $spacing: 20px;
 
 * {
@@ -123,6 +123,7 @@ h4 {
     }
     .data {
       flex: 1;
+      text-align: left;
     }
 
     .flag {
