@@ -1,0 +1,140 @@
+$devBorder: 1pt;
+$spacing: 20px;
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h4 {
+  color: grey;
+  font-weight: 400;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.App {
+  background-color: #282c34;
+  text-align: center;
+  color: white;
+  height: 100vh;
+  border: $devBorder solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AppHeader {
+  border: $devBorder solid yellow;
+  width: 400px;
+  margin-bottom: $spacing;
+}
+
+.CountryList {
+  overflow-y: scroll;
+  max-height: 100%;
+  width: 400px;
+  flex: 1;
+  border: $devBorder solid yellow;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: $spacing;
+  grid-row-gap: $spacing;
+}
+
+@media screen and (min-width: 860px) {
+  .AppHeader,
+  footer {
+    width: 820px;
+  }
+  .CountryList {
+    width: 820px;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .AppHeader,
+  footer {
+    width: 1240px;
+  }
+  .CountryList,
+  footer {
+    width: 1240px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .AppHeader,
+  footer {
+    width: 1660px;
+  }
+  .CountryList {
+    width: 1660px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.card {
+  font-size: 12pt;
+  border: 1px solid #ddd;
+  background-color: #282c34;
+  border-radius: 15px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  height: 100%;
+  padding: 1em;
+}
+
+.card {
+  .row {
+    border: $devBorder solid lightblue;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    &.titleBar {
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .logo {
+      width: 50px;
+    }
+
+    &.countryName {
+      justify-content: center;
+    }
+
+    .labels {
+      width: 25%;
+      text-align: right;
+      padding-right: 7px;
+      font-weight: 600;
+    }
+    .data {
+      flex: 1;
+    }
+
+    .flag {
+      margin: 10px auto;
+      width: 50%;
+      box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    }
+    p {
+      font-size: 0.8em;
+      border: $devBorder solid orange;
+      // max-width: 100px;
+      word-wrap: break-word;
+    }
+  }
+}
