@@ -23,7 +23,7 @@ h4 {
 }
 
 .App {
-  background-color: #282c34;
+  background-color: #202329;
   text-align: center;
   color: white;
   height: 100vh;
@@ -36,10 +36,12 @@ h4 {
 .AppHeader {
   border: $devBorder solid yellow;
   width: 400px;
+  margin-top: $spacing;
   margin-bottom: $spacing;
 }
 
 .CountryList {
+  padding: $spacing/5;
   overflow-y: scroll;
   max-height: 100%;
   width: 400px;
@@ -87,10 +89,10 @@ h4 {
 
 .card {
   font-size: 12pt;
-  border: 1px solid #ddd;
+  border: 1px solid #2f343f;
   background-color: #282c34;
   border-radius: 15px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px 0 rgba(200, 200, 200, 0.1);
   height: 100%;
   padding: 1em;
 }
@@ -105,10 +107,14 @@ h4 {
     &.titleBar {
       justify-content: space-between;
       align-items: flex-end;
-    }
-
-    .logo {
-      width: 50px;
+      .logo {
+        width: 50px;
+      }
+      .leftSide {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     &.countryName {
@@ -134,7 +140,6 @@ h4 {
     p {
       font-size: 0.8em;
       border: $devBorder solid orange;
-      // max-width: 100px;
       word-wrap: break-word;
     }
   }

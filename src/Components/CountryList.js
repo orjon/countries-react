@@ -3,28 +3,26 @@ import { v4 as uuid } from 'uuid';
 import Country from './Country';
 import axios from 'axios';
 
-const CountryList = () => {
+const CountryList = ({ setResponseTime, filterCountries }) => {
   const [countries, setCountries] = useState('');
 
-  // API response time vars
-  let responseTime = 'Connecting...';
   let countryList = [];
 
-  const getSpecificCountries = async (filter = 'all') => {
+  const getSpecificCountries = async (filterCountries = 'all') => {
     let t0 = undefined;
     let t1 = undefined;
     console.log('Getting countries...');
     t0 = performance.now();
 
     let response = await axios.get(
-      `https://restcountries.eu/rest/v2/${filter}`,
+      `https://restcountries.eu/rest/v2/${filterCountries}`,
       {
         headers: { Accept: 'application/json' },
       }
     );
 
     t1 = performance.now();
-    responseTime = 'Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's';
+    setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
 
     setCountries(response.data);
   };

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppHeader from './Components/AppHeader';
 import CountryList from './Components/CountryList';
 import './scss/App.scss';
 
-function App() {
+const App = () => {
+  const [responseTime, setResponseTime] = useState('Fetching data...');
+  const [filterCountries, setFilterCountries] = useState('all');
+
   return (
     <div className='App'>
-      <AppHeader />
-      <CountryList />
+      <AppHeader responseTime={responseTime} />
+      <CountryList
+        setResponseTime={setResponseTime}
+        filterCountries={filterCountries}
+      />
     </div>
   );
-}
+};
 
 export default App;
