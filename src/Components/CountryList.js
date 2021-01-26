@@ -6,9 +6,11 @@ import axios from 'axios';
 const CountryList = ({ setResponseTime, filterCountries }) => {
   const [countries, setCountries] = useState('');
 
+  console.log('Filter: ', filterCountries);
+
   let countryList = [];
 
-  const getSpecificCountries = async (filterCountries = 'all') => {
+  const getSpecificCountries = async (filterCountries) => {
     let t0 = undefined;
     let t1 = undefined;
     console.log('Getting countries...');
@@ -28,10 +30,8 @@ const CountryList = ({ setResponseTime, filterCountries }) => {
   };
 
   useEffect(() => {
-    if (countries.length === 0) {
-      getSpecificCountries();
-    }
-  }, []);
+    getSpecificCountries(filterCountries);
+  }, [filterCountries]);
 
   if (countries.length !== 0) {
     console.log(countries);

@@ -9,7 +9,11 @@ const App = () => {
 
   return (
     <div className='App'>
-      <AppHeader responseTime={responseTime} />
+      <AppHeader
+        responseTime={responseTime}
+        filterCountries={filterCountries}
+        setFilterCountries={setFilterCountries}
+      />
       <CountryList
         setResponseTime={setResponseTime}
         filterCountries={filterCountries}

@@ -1,10 +1,13 @@
 import React from 'react';
 
-const FilterAndSearch = () => {
+const FilterAndSearch = ({ filterCountries, setFilterCountries }) => {
   return (
     <div className='FilterAndSearch'>
-      <select id='filterSelect'>
-        <option value='all' selected>
+      <select
+        id='filterSelect'
+        onChange={(e) => setFilterCountries(e.target.value)}
+      >
+        <option value='all' defaultValue>
           All
         </option>
         <option value='region/africa'>Africa</option>

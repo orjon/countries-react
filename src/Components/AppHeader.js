@@ -2,7 +2,7 @@ import React from 'react';
 import FilterAndSearch from './FilterAndSearch';
 import Logo from '../images/logo.png';
 
-const AppHeader = ({ responseTime }) => {
+const AppHeader = ({ responseTime, filterCountries, setFilterCountries }) => {
   return (
     <header className='AppHeader'>
       <div className='card'>
@@ -13,7 +13,10 @@ const AppHeader = ({ responseTime }) => {
           </div>
           <img className='logo' src={Logo} alt='countries icon' />
         </div>
-        <FilterAndSearch />
+        <FilterAndSearch
+          filterCountries={filterCountries}
+          setFilterCountries={setFilterCountries}
+        />
       </div>
     </header>
   );
