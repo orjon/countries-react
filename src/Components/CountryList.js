@@ -6,15 +6,12 @@ import axios from 'axios';
 const CountryList = ({ setResponseTime, filter, searchString }) => {
   const [countries, setCountries] = useState('');
 
-  console.log('Filter: ', filter);
-
   let countryList = [];
 
   useEffect(() => {
     const getFilteredCountries = async (filter) => {
       let t0 = undefined;
       let t1 = undefined;
-      console.log('Getting countries...');
       t0 = performance.now();
 
       let response = await axios.get(
@@ -26,10 +23,6 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
-      const countryTemp = 243;
-      console.log(response.data);
-      console.log(response.data[countryTemp]);
-      console.log(response.data[countryTemp].topLevelDomain.join(' '));
       setCountries(response.data);
     };
     getFilteredCountries(filter);

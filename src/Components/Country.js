@@ -10,15 +10,15 @@ const Country = ({ country }) => {
 
   var languages = [];
   country.languages.forEach((language) => {
-    languages.push(' ' + language.name);
+    languages.push(language.name);
   });
 
   var currencies = [];
   country.currencies.forEach((currency) => {
     if (currency.symbol !== null) {
-      currencies.push(' ' + currency.symbol + ' ' + currency.name);
+      currencies.push(currency.symbol + ' ' + currency.name);
     } else {
-      currencies.push(' ' + currency.name);
+      currencies.push(currency.name);
     }
   });
 
@@ -88,7 +88,7 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              [{languages.length}]{languages}
+              [{languages.length}] {languages.join(', ')}
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              [{currencies.length}]{currencies}
+              [{currencies.length}] {currencies.join(', ')}
             </p>
           </div>
         </div>

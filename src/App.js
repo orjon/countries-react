@@ -8,8 +8,6 @@ const App = () => {
   const [filter, setFilter] = useState('all');
   const [searchString, setSearchString] = useState('');
 
-  console.log('Search: ', searchString);
-
   return (
     <div className='App'>
       <AppHeader
