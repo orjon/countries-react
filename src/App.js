@@ -5,18 +5,24 @@ import './scss/App.scss';
 
 const App = () => {
   const [responseTime, setResponseTime] = useState('Fetching data...');
-  const [filterCountries, setFilterCountries] = useState('all');
+  const [filter, setFilter] = useState('all');
+  const [searchString, setSearchString] = useState('');
+
+  console.log('Search: ', searchString);
 
   return (
     <div className='App'>
       <AppHeader
         responseTime={responseTime}
-        filterCountries={filterCountries}
-        setFilterCountries={setFilterCountries}
+        filter={filter}
+        setFilter={setFilter}
+        searchString={searchString}
+        setSearchString={setSearchString}
       />
       <CountryList
         setResponseTime={setResponseTime}
-        filterCountries={filterCountries}
+        filter={filter}
+        searchString={searchString}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 $devBorder: 0pt;
-$spacing: 20px;
+$spacing: 15px;
 
 * {
   box-sizing: border-box;
@@ -54,8 +54,7 @@ h4 {
 }
 
 @media screen and (min-width: 860px) {
-  .AppHeader,
-  footer {
+  .AppHeader {
     width: 820px;
   }
   .CountryList {
@@ -65,20 +64,17 @@ h4 {
 }
 
 @media screen and (min-width: 1280px) {
-  .AppHeader,
-  footer {
+  .AppHeader {
     width: 1240px;
   }
-  .CountryList,
-  footer {
+  .CountryList {
     width: 1240px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 1700px) {
-  .AppHeader,
-  footer {
+  .AppHeader {
     width: 1660px;
   }
   .CountryList {
@@ -94,14 +90,16 @@ h4 {
   border-radius: 15px;
   box-shadow: 0 0 5px 0 rgba(200, 200, 200, 0.1);
   height: 100%;
-  padding: 1em;
-}
-
-.card {
+  padding: $spacing;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .row {
     border: $devBorder solid lightblue;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 100%;
 
     &.titleBar {
@@ -114,6 +112,33 @@ h4 {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+      }
+    }
+
+    &.searchBar {
+      max-width: 600px;
+      #filterSelect,
+      #FilterSearch {
+        width: 100%;
+        margin-top: $spacing/2;
+        border: 1px solid #2f343f;
+        background-color: #282c34;
+        color: white;
+        height: 25px;
+        box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.1);
+        &::placeholder {
+          color: white;
+        }
+      }
+    }
+    @media screen and (min-width: 860px) {
+      &.searchBar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+      #FilterSearch {
+        margin-left: $spacing;
       }
     }
 
@@ -135,7 +160,7 @@ h4 {
     .flag {
       margin: 10px auto;
       width: 50%;
-      box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.2);
     }
     p {
       font-size: 0.8em;

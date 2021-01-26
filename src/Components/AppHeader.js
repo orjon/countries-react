@@ -1,8 +1,15 @@
 import React from 'react';
-import FilterAndSearch from './FilterAndSearch';
+import FilterSelect from './FilterSelect';
+import FilterSearch from './FilterSearch';
 import Logo from '../images/logo.png';
 
-const AppHeader = ({ responseTime, filterCountries, setFilterCountries }) => {
+const AppHeader = ({
+  responseTime,
+  filter,
+  setFilter,
+  searchString,
+  setSearchString,
+}) => {
   return (
     <header className='AppHeader'>
       <div className='card'>
@@ -13,10 +20,17 @@ const AppHeader = ({ responseTime, filterCountries, setFilterCountries }) => {
           </div>
           <img className='logo' src={Logo} alt='countries icon' />
         </div>
-        <FilterAndSearch
-          filterCountries={filterCountries}
-          setFilterCountries={setFilterCountries}
-        />
+        <div className='row searchBar'>
+          <FilterSelect
+            filter={filter}
+            setFilter={setFilter}
+            setSearchString={setSearchString}
+          />
+          <FilterSearch
+            searchString={searchString}
+            setSearchString={setSearchString}
+          />
+        </div>
       </div>
     </header>
   );
