@@ -26,6 +26,10 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
+      const countryTemp = 243;
+      console.log(response.data);
+      console.log(response.data[countryTemp]);
+      console.log(response.data[countryTemp].topLevelDomain.join(' '));
       setCountries(response.data);
     };
     getFilteredCountries(filter);
@@ -33,8 +37,32 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
   const getSearchedCountries = (searchString) => {
     const regExSearch = new RegExp(searchString, 'i');
+    const regExWordSearch = new RegExp(`\\b${searchString}\\b`, 'i');
+
     return countries.filter((country) => {
-      return regExSearch.test(country.name);
+      return (
+        regExSearch.test(country.name) ||
+        regExSearch.test(country.capital) ||
+        regExWordSearch.test(country.alpha2Code) ||
+        regExWordSearch.test(country.alpha3Code) ||
+        regExSearch.test(country.demonym) ||
+        regExSearch.test(country.nativeName) ||
+        regExSearch.test(
+          country.languages
+            .map((language) => {
+              return language.name;
+            })
+            .join(' ')
+        ) ||
+        regExWordSearch.test(country.topLevelDomain.join(' ')) ||
+        regExWordSearch.test(
+          country.currencies
+            .map((currency) => {
+              return currency.name;
+            })
+            .join(' ')
+        )
+      );
     });
   };
 
