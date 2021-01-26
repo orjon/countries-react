@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Country = ({ country }) => {
-  let countryNameUrl = country.name.replaceAll(' ', '&nbsp;');
-  let countryCapitalUrl = country.capital.replaceAll(' ', '&nbsp;');
+  let countryNameUrl = country.name.replaceAll(' ', '%20');
+  let countryCapitalUrl = country.capital.replaceAll(' ', '%20');
   let area = 'unavailable';
   if (country.area !== null) {
     area = country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -40,11 +40,15 @@ const Country = ({ country }) => {
         </h3>
         <h3 className='row countryName'>{country.nativeName}</h3>
         <div className='row'>
-          <img
-            className='flag'
-            src={country.flag}
-            alt={`Flag of ${country.name}`}
-          />
+          <a
+            href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
+          >
+            <img
+              className='flag'
+              src={country.flag}
+              alt={`Flag of ${country.name}`}
+            />
+          </a>
         </div>
 
         <div className='row'>

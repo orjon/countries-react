@@ -66,23 +66,43 @@ h4 {
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1260px) {
   .AppHeader {
-    width: 1240px;
+    width: 1220px;
   }
   .CountryList {
-    width: 1240px;
+    width: 1220px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
-@media screen and (min-width: 1700px) {
+@media screen and (min-width: 1660px) {
   .AppHeader {
-    width: 1660px;
+    width: 1620px;
   }
   .CountryList {
-    width: 1660px;
+    width: 1620px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 2060px) {
+  .AppHeader {
+    width: 2020px;
+  }
+  .CountryList {
+    width: 2020px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 2460px) {
+  .AppHeader {
+    width: 2420px;
+  }
+  .CountryList {
+    width: 2420px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
