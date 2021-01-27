@@ -1,19 +1,37 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
+import noFlagImage from '../images/noFlag.png';
 
 const Country = ({ country }) => {
-  let countryNameUrl = country.name.replaceAll(' ', '%20');
-  let countryCapitalUrl = country.capital.replaceAll(' ', '%20');
+  const countryNameUrl = country.name.replaceAll(' ', '%20');
+  const countryCapitalUrl = country.capital.replaceAll(' ', '%20');
   let area = 'unavailable';
   if (country.area !== null) {
     area = country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
-  var languages = [];
+  let languages = [];
   country.languages.forEach((language) => {
     languages.push(language.name);
   });
+  let languagesList = languages.map((language, index) => {
+    let languageUrl = language.replaceAll(' ', '%20') + '%20language';
+    let seperator = '';
+    if (index + 1 !== languages.length) {
+      seperator = ', ';
+    }
+    return (
+      <a
+        key={uuid()}
+        href={`https://en.wikipedia.org/wiki/Special:Search/${languageUrl}`}
+      >
+        {language}
+        {seperator}
+      </a>
+    );
+  });
 
-  var currencies = [];
+  let currencies = [];
   country.currencies.forEach((currency) => {
     if (currency.symbol !== null) {
       currencies.push(currency.symbol + ' ' + currency.name);
@@ -22,10 +40,17 @@ const Country = ({ country }) => {
     }
   });
 
-  var timezones = [];
+  let timezones = [];
   country.timezones.forEach((timezone) => {
     timezones.push(' ' + timezone);
   });
+
+  const fallbackFlag = (e) => {
+    if (e.target.src !== noFlagImage) {
+      e.target.onerror = null;
+      e.target.src = noFlagImage;
+    }
+  };
 
   return (
     <div className='card country'>
@@ -41,6 +66,7 @@ const Country = ({ country }) => {
             <img
               className='flag'
               src={country.flag}
+              onError={(e) => fallbackFlag(e)}
               alt={`Flag of ${country.name}`}
             />
           </div>
@@ -87,7 +113,7 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              [{languages.length}] {languages.join(', ')}
+              [{languages.length}] {languagesList}
             </p>
           </div>
         </div>

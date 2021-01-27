@@ -1,4 +1,4 @@
-$devBorder: 0pt;
+$devBorder: 1pt;
 $spacing: 15px;
 
 * {
@@ -14,11 +14,6 @@ $spacing: 15px;
 a {
   text-decoration: none;
   color: white;
-}
-
-h4 {
-  color: grey;
-  font-weight: 400;
 }
 
 ::-webkit-scrollbar {
@@ -42,6 +37,15 @@ h4 {
   width: 400px;
   margin-top: $spacing;
   margin-bottom: $spacing;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .responseTime {
+    color: grey;
+    font-weight: 400;
+  }
 }
 
 .CountryList {
@@ -117,6 +121,10 @@ h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .details {
+    width: 100%;
+  }
   .row {
     border: $devBorder solid lightblue;
     display: flex;
@@ -167,6 +175,7 @@ h4 {
         }
       }
     }
+
     @media screen and (min-width: 860px) {
       &.searchBar {
         flex-direction: row;
@@ -187,9 +196,11 @@ h4 {
 
     .labels {
       width: 25%;
+      align-self: flex-start;
       text-align: right;
       padding-right: 7px;
       font-weight: 600;
+      vertical-align: top;
     }
     .data {
       flex: 1;
