@@ -18,9 +18,9 @@ const AppHeader = ({
             <h2>React.js RESTCountries.eu API</h2>
             <h4 className='responseTime'>{responseTime}</h4>
           </div>
-          <img className='logo' src={Logo} alt='countries icon' />
+          <img className='logo' src={Logo} alt='website logo' />
         </div>
-        <div className='row searchBar'>
+        <form className='row searchBar'>
           <FilterSelect
             filter={filter}
             setFilter={setFilter}
@@ -30,7 +30,7 @@ const AppHeader = ({
             searchString={searchString}
             setSearchString={setSearchString}
           />
-        </div>
+        </form>
       </div>
     </header>
   );

@@ -2,13 +2,17 @@ import React from 'react';
 
 const FilterSearch = ({ searchString, setSearchString }) => {
   return (
-    <input
-      id='FilterSearch'
-      type='text'
-      placeholder='Search in results...'
-      value={searchString}
-      onChange={(e) => setSearchString(e.target.value)}
-    ></input>
+    <div className='formField'>
+      <label htmlFor='searchInRegion'>Search in region</label>
+      <input
+        id='FilterSearch'
+        name='searchInRegion'
+        type='text'
+        placeholder='Search...'
+        value={searchString}
+        onChange={(e) => setSearchString(e.target.value.trim())}
+      ></input>
+    </div>
   );
 };
 

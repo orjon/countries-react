@@ -30,26 +30,21 @@ const Country = ({ country }) => {
   return (
     <div className='card country'>
       <div className='details'>
-        <h3 className='row countryName'>
-          <a
-            href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
-          >
-            {country.name}&nbsp;
-          </a>
-          ({country.alpha3Code})
-        </h3>
-        <h3 className='row countryName'>{country.nativeName}</h3>
-        <div className='row'>
-          <a
-            href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
-          >
+        <a
+          href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
+        >
+          <h3 className='row countryName'>
+            {country.name}&nbsp; ({country.alpha3Code})
+          </h3>
+          <h3 className='row countryName'>{country.nativeName}</h3>
+          <div className='row'>
             <img
               className='flag'
               src={country.flag}
               alt={`Flag of ${country.name}`}
             />
-          </a>
-        </div>
+          </div>
+        </a>
 
         <div className='row'>
           <div className='labels'>
