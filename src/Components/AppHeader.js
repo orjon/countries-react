@@ -1,6 +1,6 @@
 import React from 'react';
-import FilterSelect from './FilterSelect';
-import FilterSearch from './FilterSearch';
+import RegionSelect from './RegionSelect';
+import RegionSearch from './RegionSearch';
 import Logo from '../images/logo.png';
 
 const AppHeader = ({
@@ -20,13 +20,13 @@ const AppHeader = ({
           </div>
           <img className='logo' src={Logo} alt='website logo' />
         </div>
-        <form className='row searchBar'>
-          <FilterSelect
+        <form role='search' className='row searchBar'>
+          <RegionSelect
             filter={filter}
             setFilter={setFilter}
             setSearchString={setSearchString}
           />
-          <FilterSearch
+          <RegionSearch
             searchString={searchString}
             setSearchString={setSearchString}
           />

@@ -1,12 +1,12 @@
 import React from 'react';
 
-const FilterSearch = ({ searchString, setSearchString }) => {
+const RegionSearch = ({ searchString, setSearchString }) => {
   return (
     <div className='formField'>
-      <label htmlFor='searchInRegion'>Search in region</label>
+      <label htmlFor='regionSearch'>Search in region</label>
       <input
-        id='FilterSearch'
-        name='searchInRegion'
+        id='regionSearch'
+        name='regionSearch'
         type='text'
         placeholder='Search...'
         value={searchString}
@@ -16,4 +16,4 @@ const FilterSearch = ({ searchString, setSearchString }) => {
   );
 };
 
-export default FilterSearch;
+export default RegionSearch;

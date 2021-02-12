@@ -1,11 +1,11 @@
 import React from 'react';
 
-const FilterSelect = ({ filter, setFilter, setSearchString }) => {
+const RegionSelect = ({ filter, setFilter, setSearchString }) => {
   return (
     <div className='formField'>
       <label htmlFor='regionSelect'>Region select</label>
       <select
-        id='FilterSelect'
+        id='regionSelect'
         name='regionSelect'
         value={filter}
         onChange={(e) => {
@@ -38,4 +38,4 @@ const FilterSelect = ({ filter, setFilter, setSearchString }) => {
   );
 };
 
-export default FilterSelect;
+export default RegionSelect;

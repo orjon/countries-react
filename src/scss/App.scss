@@ -1,4 +1,4 @@
-$devBorder: 1pt;
+$devBorder: 0pt;
 $spacing: 15px;
 
 * {
@@ -7,8 +7,15 @@ $spacing: 15px;
   font-family: 'Ubuntu', sans-serif;
 }
 
-#root {
+:root {
   background-color: #202329;
+}
+
+h1 {
+  font-size: 24px;
+}
+h2 {
+  font-size: 18px;
 }
 
 a {
@@ -30,20 +37,18 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 $spacing;
 }
 
 .AppHeader {
   border: $devBorder solid yellow;
-  width: 400px;
-  margin-top: $spacing;
-  margin-bottom: $spacing;
-
-  h1 {
-    font-size: 24px;
-  }
+  min-width: 350px;
+  width: 100%;
+  margin: $spacing 0;
 
   .responseTime {
-    color: grey;
+    font-size: 10pt;
+    color: #9c9c9c;
     font-weight: 400;
   }
 }
@@ -51,8 +56,8 @@ a {
 .CountryList {
   padding: $spacing/5;
   overflow-y: scroll;
-  max-height: 100%;
-  width: 400px;
+  flex: 1;
+  min-width: 350px;
   border: $devBorder solid yellow;
   display: grid;
   grid-template-columns: 1fr;
@@ -60,52 +65,32 @@ a {
   grid-row-gap: $spacing;
 }
 
-@media screen and (min-width: 860px) {
-  .AppHeader {
-    width: 820px;
-  }
+@media screen and (min-width: 750px) {
   .CountryList {
-    width: 820px;
     grid-template-columns: 1fr 1fr;
   }
 }
 
-@media screen and (min-width: 1260px) {
-  .AppHeader {
-    width: 1220px;
-  }
+@media screen and (min-width: 1110px) {
   .CountryList {
-    width: 1220px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 1660px) {
-  .AppHeader {
-    width: 1620px;
-  }
   .CountryList {
-    width: 1620px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 2060px) {
-  .AppHeader {
-    width: 2020px;
-  }
   .CountryList {
-    width: 2020px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
 @media screen and (min-width: 2460px) {
-  .AppHeader {
-    width: 2420px;
-  }
   .CountryList {
-    width: 2420px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
@@ -161,8 +146,8 @@ a {
         label {
           font-size: 11pt;
         }
-        #FilterSelect,
-        #FilterSearch {
+        #regionSelect,
+        #regionSearch {
           width: 100%;
           border: 1px solid #2f343f;
           background-color: #282c34;
@@ -192,6 +177,11 @@ a {
 
     &.countryName {
       justify-content: center;
+    }
+
+    &.countryNameNative {
+      justify-content: center;
+      font-size: 16px;
     }
 
     .labels {

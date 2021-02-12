@@ -39,6 +39,22 @@ const Country = ({ country }) => {
       currencies.push(currency.name);
     }
   });
+  let currencyList = currencies.map((currency, index) => {
+    let currencyUrl = currency + '%20currency';
+    let seperator = '';
+    if (index + 1 !== currencies.length) {
+      seperator = ', ';
+    }
+    return (
+      <a
+        key={uuid()}
+        href={`https://en.wikipedia.org/wiki/Special:Search/${currencyUrl}`}
+      >
+        {currency}
+        {seperator}
+      </a>
+    );
+  });
 
   let timezones = [];
   country.timezones.forEach((timezone) => {
@@ -53,15 +69,15 @@ const Country = ({ country }) => {
   };
 
   return (
-    <div className='card country'>
+    <div role='region' aria-label={country.name} className='card country'>
       <div className='details'>
         <a
           href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
         >
-          <h3 className='row countryName'>
+          <h2 className='row countryName'>
             {country.name}&nbsp; ({country.alpha3Code})
-          </h3>
-          <h3 className='row countryName'>{country.nativeName}</h3>
+          </h2>
+          <div className='row countryNameNative'>{country.nativeName}</div>
           <div className='row'>
             <img
               className='flag'
@@ -77,11 +93,15 @@ const Country = ({ country }) => {
             <p>Capital</p>
           </div>
           <div className='data'>
-            <a
-              href={`https://en.wikipedia.org/wiki/Special:Search/${countryCapitalUrl}`}
-            >
-              <p>{country.capital}</p>
-            </a>
+            {country.capital ? (
+              <a
+                href={`https://en.wikipedia.org/wiki/Special:Search/${countryCapitalUrl}`}
+              >
+                <p>{country.capital}</p>
+              </a>
+            ) : (
+              <p>(none)</p>
+            )}
           </div>
         </div>
 
@@ -124,7 +144,8 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              [{currencies.length}] {currencies.join(', ')}
+              [{currencies.length}] {currencyList}
+              {/* {currencies.join(', ')} */}
             </p>
           </div>
         </div>

@@ -23,7 +23,13 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
-      setCountries(response.data);
+      let correctedResponse = response.data;
+      if (filter === 'regionalbloc/eu') {
+        correctedResponse = correctedResponse.filter(
+          (country) => country.nativeName != 'United Kingdom'
+        );
+      }
+      setCountries(correctedResponse);
     };
     getFilteredCountries(filter);
   }, [filter, setResponseTime, setCountries]);
@@ -65,7 +71,11 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
     });
   }
 
-  return <div className='CountryList'>{countryList}</div>;
+  return (
+    <main aria-label='Country list' className='CountryList'>
+      {countryList}
+    </main>
+  );
 };
 
 export default CountryList;
