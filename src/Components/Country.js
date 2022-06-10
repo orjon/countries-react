@@ -4,7 +4,9 @@ import noFlagImage from '../images/noFlag.png';
 
 const Country = ({ country }) => {
   const countryNameUrl = country.name.replaceAll(' ', '%20');
-  const countryCapitalUrl = country.capital.replaceAll(' ', '%20');
+  const countryCapitalUrl = country.capital
+    ? country.capital.replaceAll(' ', '%20')
+    : 'N/A';
   let area = 'unavailable';
   if (country.area !== null) {
     area = country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -32,6 +34,9 @@ const Country = ({ country }) => {
   });
 
   let currencies = [];
+  if (!country.currencies) {
+    console.log(country);
+  }
   country.currencies.forEach((currency) => {
     if (currency.symbol !== null) {
       currencies.push(currency.symbol + ' ' + currency.name);
@@ -39,6 +44,7 @@ const Country = ({ country }) => {
       currencies.push(currency.name);
     }
   });
+  console.log(currencies);
   let currencyList = currencies.map((currency, index) => {
     let currencyUrl = currency + '%20currency';
     let seperator = '';
@@ -55,6 +61,8 @@ const Country = ({ country }) => {
       </a>
     );
   });
+
+  console.log(currencyList);
 
   let timezones = [];
   country.timezones.forEach((timezone) => {

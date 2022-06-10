@@ -15,7 +15,7 @@ const AppHeader = ({
       <div className='card'>
         <div className='row titleBar'>
           <div className='leftSide'>
-            <h1>React.js RESTCountries.eu API</h1>
+            <h1>React.js RESTCountries.com API</h1>
             <div className='responseTime'>{responseTime}</div>
           </div>
           <img className='logo' src={Logo} alt='website logo' />

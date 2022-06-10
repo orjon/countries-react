@@ -15,18 +15,17 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
       t0 = performance.now();
 
       let response = await axios.get(
-        `https://restcountries.eu/rest/v2/${filter}`,
-        {
-          headers: { Accept: 'application/json' },
-        }
+        `https://restcountries.com/v3.1/${filter}`
       );
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
       let correctedResponse = response.data;
+      console.log(correctedResponse);
+      // Filter out UK because of Brexit
       if (filter === 'regionalbloc/eu') {
         correctedResponse = correctedResponse.filter(
-          (country) => country.nativeName != 'United Kingdom'
+          (country) => country.nativeName !== 'United Kingdom'
         );
       }
       setCountries(correctedResponse);
