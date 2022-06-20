@@ -23,11 +23,11 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
       let correctedResponse = response.data;
       console.log(correctedResponse);
       // Filter out UK because of Brexit
-      if (filter === 'regionalbloc/eu') {
-        correctedResponse = correctedResponse.filter(
-          (country) => country.nativeName !== 'United Kingdom'
-        );
-      }
+      // if (filter === 'regionalbloc/eu') {
+      //   correctedResponse = correctedResponse.filter(
+      //     (country) => country.nativeName !== 'United Kingdom'
+      //   );
+      // }
       setCountries(correctedResponse);
     };
     getFilteredCountries(filter);

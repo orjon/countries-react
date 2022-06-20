@@ -3,9 +3,12 @@ import { v4 as uuid } from 'uuid';
 import noFlagImage from '../images/noFlag.png';
 
 const Country = ({ country }) => {
-  const countryNameUrl = country.name.replaceAll(' ', '%20');
+  console.log(country.name.common);
+  console.log(country);
+  const countryNameUrl = country.name.common.replaceAll(' ', '%20');
+  const countryCapital = country.capital ? country.capital[0] : 'N/A';
   const countryCapitalUrl = country.capital
-    ? country.capital.replaceAll(' ', '%20')
+    ? country.capital[0].replaceAll(' ', '%20')
     : 'N/A';
   let area = 'unavailable';
   if (country.area !== null) {
@@ -13,9 +16,9 @@ const Country = ({ country }) => {
   }
 
   let languages = [];
-  country.languages.forEach((language) => {
-    languages.push(language.name);
-  });
+  for (const language in country.languages) {
+    languages.push(country.languages[language]);
+  }
   let languagesList = languages.map((language, index) => {
     let languageUrl = language.replaceAll(' ', '%20') + '%20language';
     let seperator = '';
@@ -37,32 +40,43 @@ const Country = ({ country }) => {
   if (!country.currencies) {
     console.log(country);
   }
-  country.currencies.forEach((currency) => {
+  for (const currency in country.currencies) {
+    console.log('currency', currency);
     if (currency.symbol !== null) {
       currencies.push(currency.symbol + ' ' + currency.name);
     } else {
       currencies.push(currency.name);
     }
-  });
+    currencies.length != 0 ? console.log(currencies) : console.log('empty');
+  }
   console.log(currencies);
-  let currencyList = currencies.map((currency, index) => {
-    let currencyUrl = currency + '%20currency';
-    let seperator = '';
-    if (index + 1 !== currencies.length) {
-      seperator = ', ';
-    }
-    return (
-      <a
-        key={uuid()}
-        href={`https://en.wikipedia.org/wiki/Special:Search/${currencyUrl}`}
-      >
-        {currency}
-        {seperator}
-      </a>
-    );
-  });
+  // country.currencies &&
+  //   country.currencies.forEach((currency) => {
+  //     if (currency.symbol !== null) {
+  //       currencies.push(currency.symbol + ' ' + currency.name);
+  //     } else {
+  //       currencies.push(currency.name);
+  //     }
+  //   });
+  // console.log(currencies);
+  // let currencyList = currencies.map((currency, index) => {
+  //   let currencyUrl = currency + '%20currency';
+  //   let seperator = '';
+  //   if (index + 1 !== currencies.length) {
+  //     seperator = ', ';
+  //   }
+  //   return (
+  //     <a
+  //       key={uuid()}
+  //       href={`https://en.wikipedia.org/wiki/Special:Search/${currencyUrl}`}
+  //     >
+  //       {currency}
+  //       {seperator}
+  //     </a>
+  //   );
+  // });
 
-  console.log(currencyList);
+  // console.log(currencyList);
 
   let timezones = [];
   country.timezones.forEach((timezone) => {
@@ -77,21 +91,25 @@ const Country = ({ country }) => {
   };
 
   return (
-    <div role='region' aria-label={country.name} className='card country'>
+    <div
+      role='region'
+      aria-label={country.name.common}
+      className='card country'
+    >
       <div className='details'>
         <a
           href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
         >
           <h2 className='row countryName'>
-            {country.name}&nbsp; ({country.alpha3Code})
+            {country.name.common}&nbsp; ({country.cca3})
           </h2>
-          <div className='row countryNameNative'>{country.nativeName}</div>
+          {/* <div className='row countryNameNative'>{country.name.nativeName}</div> */}
           <div className='row'>
             <img
               className='flag'
-              src={country.flag}
+              src={country.flag.svg}
               onError={(e) => fallbackFlag(e)}
-              alt={`Flag of ${country.name}`}
+              alt={`Flag of ${country.name.common}`}
             />
           </div>
         </a>
@@ -108,7 +126,7 @@ const Country = ({ country }) => {
                 <p>{country.capital}</p>
               </a>
             ) : (
-              <p>(none)</p>
+              <p>N/A</p>
             )}
           </div>
         </div>
@@ -152,7 +170,8 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              [{currencies.length}] {currencyList}
+              XXX
+              {/* [{currencies.length}] {currencyList} */}
               {/* {currencies.join(', ')} */}
             </p>
           </div>
@@ -163,9 +182,7 @@ const Country = ({ country }) => {
             <p>Timezones</p>
           </div>
           <div className='data'>
-            <p>
-              [{timezones.length}]{timezones}
-            </p>
+            <p>{/* [{timezones.length}]{timezones} */}</p>
           </div>
         </div>
 
@@ -173,18 +190,14 @@ const Country = ({ country }) => {
           <div className='labels'>
             <p>Domain</p>
           </div>
-          <div className='data'>
-            <p>{country.topLevelDomain}</p>
-          </div>
+          <div className='data'>{/* <p>{country.topLevelDomain}</p> */}</div>
         </div>
 
         <div className='row'>
           <div className='labels'>
             <p>Calling Code</p>
           </div>
-          <div className='data'>
-            <p>+{country.callingCodes}</p>
-          </div>
+          <div className='data'>{/* <p>+{country.callingCodes}</p> */}</div>
         </div>
       </div>
     </div>
