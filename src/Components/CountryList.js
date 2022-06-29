@@ -20,15 +20,13 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
-      let correctedResponse = response.data;
-      console.log(correctedResponse);
       // Filter out UK because of Brexit
       // if (filter === 'regionalbloc/eu') {
       //   correctedResponse = correctedResponse.filter(
       //     (country) => country.nativeName !== 'United Kingdom'
       //   );
       // }
-      setCountries(correctedResponse);
+      setCountries(response.data);
     };
     getFilteredCountries(filter);
   }, [filter, setResponseTime, setCountries]);
@@ -39,12 +37,12 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
 
     return countries.filter((country) => {
       return (
-        regExSearch.test(country.name) ||
+        regExSearch.test(country.name.common) ||
         regExSearch.test(country.capital) ||
         regExWordSearch.test(country.alpha2Code) ||
         regExWordSearch.test(country.alpha3Code) ||
         regExSearch.test(country.demonym) ||
-        regExSearch.test(country.nativeName) ||
+        regExSearch.test(country.name.nativeName) ||
         regExSearch.test(
           country.languages
             .map((language) => {

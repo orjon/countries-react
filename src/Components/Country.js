@@ -3,8 +3,8 @@ import { v4 as uuid } from 'uuid';
 import noFlagImage from '../images/noFlag.png';
 
 const Country = ({ country }) => {
-  console.log(country.name.common);
-  console.log(country);
+  // console.log(country.name.common);
+  // console.log(country);
   const countryNameUrl = country.name.common.replaceAll(' ', '%20');
   const countryCapital = country.capital ? country.capital[0] : 'N/A';
   const countryCapitalUrl = country.capital
@@ -38,27 +38,20 @@ const Country = ({ country }) => {
 
   let currencies = [];
   if (!country.currencies) {
-    console.log(country);
+    console.log('No currencies:', country.name.common);
+  } else {
+    Object.keys(country.currencies).forEach((currency) => {
+      const thisCurrency = country.currencies[currency];
+      if (thisCurrency.symbol !== null) {
+        currencies.push(thisCurrency.symbol + ' ' + thisCurrency.name);
+      } else {
+        currencies.push(thisCurrency.name);
+      }
+    });
   }
-  for (const currency in country.currencies) {
-    console.log('currency', currency);
-    if (currency.symbol !== null) {
-      currencies.push(currency.symbol + ' ' + currency.name);
-    } else {
-      currencies.push(currency.name);
-    }
-    currencies.length != 0 ? console.log(currencies) : console.log('empty');
-  }
-  console.log(currencies);
-  // country.currencies &&
-  //   country.currencies.forEach((currency) => {
-  //     if (currency.symbol !== null) {
-  //       currencies.push(currency.symbol + ' ' + currency.name);
-  //     } else {
-  //       currencies.push(currency.name);
-  //     }
-  //   });
+
   // console.log(currencies);
+
   // let currencyList = currencies.map((currency, index) => {
   //   let currencyUrl = currency + '%20currency';
   //   let seperator = '';
@@ -78,10 +71,15 @@ const Country = ({ country }) => {
 
   // console.log(currencyList);
 
-  let timezones = [];
+  const timezones = [];
   country.timezones.forEach((timezone) => {
     timezones.push(' ' + timezone);
   });
+
+  let domains = 'N/A';
+  if (country.tld) {
+    domains = country.tld.join(', ');
+  }
 
   const fallbackFlag = (e) => {
     if (e.target.src !== noFlagImage) {
@@ -107,7 +105,7 @@ const Country = ({ country }) => {
           <div className='row'>
             <img
               className='flag'
-              src={country.flag.svg}
+              src={country.flags.svg}
               onError={(e) => fallbackFlag(e)}
               alt={`Flag of ${country.name.common}`}
             />
@@ -170,9 +168,7 @@ const Country = ({ country }) => {
           </div>
           <div className='data'>
             <p>
-              XXX
-              {/* [{currencies.length}] {currencyList} */}
-              {/* {currencies.join(', ')} */}
+              [{currencies.length}] {currencies.join(', ')}
             </p>
           </div>
         </div>
@@ -182,22 +178,28 @@ const Country = ({ country }) => {
             <p>Timezones</p>
           </div>
           <div className='data'>
-            <p>{/* [{timezones.length}]{timezones} */}</p>
+            <p>
+              [{timezones.length}]{timezones}
+            </p>
           </div>
         </div>
 
         <div className='row'>
           <div className='labels'>
-            <p>Domain</p>
+            <p>Domains</p>
           </div>
-          <div className='data'>{/* <p>{country.topLevelDomain}</p> */}</div>
+          <div className='data'>
+            <p>{domains}</p>
+          </div>
         </div>
 
         <div className='row'>
           <div className='labels'>
             <p>Calling Code</p>
           </div>
-          <div className='data'>{/* <p>+{country.callingCodes}</p> */}</div>
+          <div className='data'>
+            <p>{country.idd.root}</p>
+          </div>
         </div>
       </div>
     </div>
