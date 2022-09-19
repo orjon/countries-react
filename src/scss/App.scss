@@ -28,6 +28,10 @@ a {
   background: transparent; /* make scrollbar transparent */
 }
 
+.shadow {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+}
+
 .App {
   background-color: #202329;
   text-align: center;
@@ -145,6 +149,7 @@ a {
         align-items: flex-start;
         label {
           font-size: 11pt;
+          margin-bottom: 5px;
         }
         #regionSelect,
         #regionSearch {
@@ -153,7 +158,6 @@ a {
           background-color: #282c34;
           color: white;
           height: 25px;
-          box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.1);
           &::placeholder {
             color: white;
           }
@@ -179,7 +183,7 @@ a {
       justify-content: center;
     }
 
-    &.countryNameNative {
+    &.countryNameOffical {
       justify-content: center;
       font-size: 16px;
     }
@@ -200,7 +204,7 @@ a {
     .flag {
       margin: 10px auto;
       width: 50%;
-      box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.2);
+      // box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.2);
     }
     p {
       font-size: 0.8em;

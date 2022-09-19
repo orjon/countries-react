@@ -6,6 +6,7 @@ const RegionSearch = ({ searchString, setSearchString }) => {
       <label htmlFor='regionSearch'>Search in region</label>
       <input
         id='regionSearch'
+        className='shadow'
         name='regionSearch'
         type='text'
         placeholder='Search...'

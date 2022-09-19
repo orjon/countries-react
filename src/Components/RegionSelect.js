@@ -6,6 +6,7 @@ const RegionSelect = ({ filter, setFilter, setSearchString }) => {
       <label htmlFor='regionSelect'>Region select</label>
       <select
         id='regionSelect'
+        className='shadow'
         name='regionSelect'
         value={filter}
         onChange={(e) => {

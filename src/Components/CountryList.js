@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import Country from './Country';
+import { arraySort } from '../Utils';
 import axios from 'axios';
 
 const CountryList = ({ setResponseTime, filter, searchString }) => {
@@ -18,6 +19,8 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
         `https://restcountries.com/v3.1/${filter}`
       );
 
+      console.log(response.data);
+
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
       // Filter out UK because of Brexit
@@ -26,7 +29,8 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
       //     (country) => country.nativeName !== 'United Kingdom'
       //   );
       // }
-      setCountries(response.data);
+
+      setCountries(arraySort(response.data, 'name.common'));
     };
     getFilteredCountries(filter);
   }, [filter, setResponseTime, setCountries]);

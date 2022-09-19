@@ -16,9 +16,13 @@ const Country = ({ country }) => {
   }
 
   let languages = [];
-  for (const language in country.languages) {
-    languages.push(country.languages[language]);
+  if (country.languages) {
+    // console.log(country.languages);
+    languages = Object.values(country.languages);
+  } else {
+    console.log('No languages', country.name.common);
   }
+
   let languagesList = languages.map((language, index) => {
     let languageUrl = language.replaceAll(' ', '%20') + '%20language';
     let seperator = '';
@@ -81,6 +85,11 @@ const Country = ({ country }) => {
     domains = country.tld.join(', ');
   }
 
+  let dialingCode = country.idd.root;
+  if (country.idd.suffixes && country.idd.suffixes.length == 1) {
+    dialingCode = dialingCode + country.idd.suffixes[0];
+  }
+
   const fallbackFlag = (e) => {
     if (e.target.src !== noFlagImage) {
       e.target.onerror = null;
@@ -99,12 +108,13 @@ const Country = ({ country }) => {
           href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
         >
           <h2 className='row countryName'>
-            {country.name.common}&nbsp; ({country.cca3})
+            {country.name.common}&nbsp;({country.cca3})
           </h2>
           {/* <div className='row countryNameNative'>{country.name.nativeName}</div> */}
+          <div className='row countryNameOfficial'>{country.name.official}</div>
           <div className='row'>
             <img
-              className='flag'
+              className='flag shadow'
               src={country.flags.svg}
               onError={(e) => fallbackFlag(e)}
               alt={`Flag of ${country.name.common}`}
@@ -117,11 +127,11 @@ const Country = ({ country }) => {
             <p>Capital</p>
           </div>
           <div className='data'>
-            {country.capital ? (
+            {countryCapital ? (
               <a
                 href={`https://en.wikipedia.org/wiki/Special:Search/${countryCapitalUrl}`}
               >
-                <p>{country.capital}</p>
+                <p>{countryCapital}</p>
               </a>
             ) : (
               <p>N/A</p>
@@ -198,7 +208,7 @@ const Country = ({ country }) => {
             <p>Calling Code</p>
           </div>
           <div className='data'>
-            <p>{country.idd.root}</p>
+            <p>{dialingCode}</p>
           </div>
         </div>
       </div>
