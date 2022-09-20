@@ -22,18 +22,16 @@ const RegionSelect = ({ filter, setFilter, setSearchString }) => {
         <option value='region/europe'>Europe</option>
         <option value='region/oceania'>Oceania</option>
         <option disabled>Regional Blocks:</option>
-        <option value='regionalbloc/eu'>EU (European Union)</option>
-        <option value='regionalbloc/nafta'>
+        <option value='subregion/eu'>EU (European Union)</option>
+        <option value='subregion/nafta'>
           NAFTA (North American Free Trade Agreement)
         </option>
-        <option value='regionalbloc/usan'>
+        <option value='subregion/usan'>
           USAN (Union of South American Nations)
         </option>
-        <option value='regionalbloc/au'>AU (African Union)</option>
-        <option value='regionalbloc/pa'>PA (Pacific Alliance)</option>
-        <option value='regionalbloc/caricom'>
-          CARICOM (Caribbean Community)
-        </option>
+        <option value='subregion/au'>AU (African Union)</option>
+        <option value='subregion/pa'>PA (Pacific Alliance)</option>
+        <option value='subregion/caricom'>CARICOM (Caribbean Community)</option>
       </select>
     </div>
   );

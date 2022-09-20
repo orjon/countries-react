@@ -4,10 +4,10 @@ import Country from './Country';
 import { arraySort } from '../Utils';
 import axios from 'axios';
 
-const CountryList = ({ setResponseTime, filter, searchString }) => {
+const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
   const [countries, setCountries] = useState('');
 
-  let countryList = [];
+  let countryList = dataLocal ? dataLocal : [];
 
   useEffect(() => {
     const getFilteredCountries = async (filter) => {
@@ -29,9 +29,19 @@ const CountryList = ({ setResponseTime, filter, searchString }) => {
       //     (country) => country.nativeName !== 'United Kingdom'
       //   );
       // }
-
       setCountries(arraySort(response.data, 'name.common'));
     };
+
+    // const localFilter = (filter) => {
+    //   //filter local
+    // };
+
+    // if (dataLocal) {
+    //   localFilter(filter);
+    // } else {
+    //   getFilteredCountries(filter);
+    // }
+
     getFilteredCountries(filter);
   }, [filter, setResponseTime, setCountries]);
 
