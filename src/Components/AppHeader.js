@@ -8,7 +8,7 @@ const AppHeader = ({
   filter,
   setFilter,
   searchString,
-  setSearchString,
+  setSearchString
 }) => {
   return (
     <header className='AppHeader'>
@@ -27,6 +27,7 @@ const AppHeader = ({
             setSearchString={setSearchString}
           />
           <RegionSearch
+            filter={filter}
             searchString={searchString}
             setSearchString={setSearchString}
           />
