@@ -9,17 +9,23 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
 
   let countryList = dataLocal ? dataLocal : [];
 
+  let url = `https://restcountries.com/v3.1/${filter}`;
+
   useEffect(() => {
     const getFilteredCountries = async (filter) => {
+      let response = undefined;
       let t0 = undefined;
       let t1 = undefined;
       t0 = performance.now();
+      try {
+        response = await axios.get(url);
+      } catch (error) {
+        console.log(`Error getting data from: ${url}`);
+        console.log(error.response.data.error);
+        console.log('Using local data...');
+      }
 
-      let response = await axios.get(
-        `https://restcountries.com/v3.1/${filter}`
-      );
-
-      console.log(response.data);
+      // console.log(response.data);
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
@@ -52,9 +58,7 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
     return countries.filter((country) => {
       let languages = [];
       if (country.languages) {
-        console.log(country.languages);
         languages = Object.values(country.languages).join(' ');
-        console.log(languages);
       }
 
       return (

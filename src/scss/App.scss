@@ -1,6 +1,17 @@
 $devBorder: 0pt;
 $spacing: 15px;
 
+$fontDefault: 0.8em;
+$lineHeight: 15px;
+
+$colorCardBackground: #282c34;
+$colorDataBackground: $colorCardBackground;
+
+$textWhite: #eee;
+$textWhiteHover: lime;
+$textOffWhite: #9c9c9c;
+$textOffWhiteHover: pink;
+
 * {
   box-sizing: border-box;
   margin: 0px;
@@ -20,7 +31,10 @@ h2 {
 
 a {
   text-decoration: none;
-  color: white;
+  color: $textWhite;
+  &:hover {
+    color: $textWhiteHover;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -35,7 +49,7 @@ a {
 .App {
   background-color: #202329;
   text-align: center;
-  color: white;
+  color: $textWhite;
   height: 100vh;
   border: $devBorder solid red;
   display: flex;
@@ -49,10 +63,16 @@ a {
   min-width: 350px;
   width: 100%;
   margin: $spacing 0;
+  user-select: none;
+
+  .appTitle {
+    user-select: all;
+    cursor: default;
+  }
 
   .responseTime {
     font-size: 10pt;
-    color: #9c9c9c;
+    color: $textOffWhite;
     font-weight: 400;
   }
 }
@@ -102,7 +122,7 @@ a {
 .card {
   font-size: 12pt;
   border: 1px solid #2f343f;
-  background-color: #282c34;
+  background-color: $colorCardBackground;
   border-radius: 15px;
   box-shadow: 0 0 5px 0 rgba(200, 200, 200, 0.1);
   height: 100%;
@@ -113,7 +133,12 @@ a {
 
   .details {
     width: 100%;
+    height: 100%;
+    border: $devBorder solid orange;
+    display: flex;
+    flex-direction: column;
   }
+
   .row {
     border: $devBorder solid lightblue;
     display: flex;
@@ -155,11 +180,11 @@ a {
         #regionSearch {
           width: 100%;
           border: 1px solid #2f343f;
-          background-color: #282c34;
-          color: white;
+          background-color: $colorCardBackground;
+          color: $textWhite;
           height: 25px;
           &::placeholder {
-            color: white;
+            color: $textWhite;
           }
         }
       }
@@ -190,25 +215,35 @@ a {
     }
 
     .labels {
-      width: 25%;
+      font-size: $fontDefault;
+      width: 35%;
       align-self: flex-start;
       text-align: right;
       padding-right: 7px;
       font-weight: 600;
       vertical-align: top;
+      line-height: $lineHeight;
+      user-select: none;
     }
     .data {
+      font-size: $fontDefault;
       flex: 1;
       text-align: left;
+      line-height: $lineHeight;
+      color: $textOffWhite;
+      background-color: $colorDataBackground;
+      user-select: all;
+      a:hover {
+        color: $textOffWhiteHover;
+      }
     }
 
     .flag {
-      margin: 10px auto;
+      margin: 15px auto;
       width: 50%;
       // box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.2);
     }
     p {
-      font-size: 0.8em;
       border: $devBorder solid orange;
       word-wrap: break-word;
     }

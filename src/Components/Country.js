@@ -3,91 +3,125 @@ import { v4 as uuid } from 'uuid';
 import noFlagImage from '../images/noFlag.png';
 
 const Country = ({ country }) => {
-  // console.log(country.name.common);
-  // console.log(country);
   const countryNameUrl = country.name.common.replaceAll(' ', '%20');
-  const countryCapital = country.capital ? country.capital[0] : 'N/A';
-  const countryCapitalUrl = country.capital
-    ? country.capital[0].replaceAll(' ', '%20')
-    : 'N/A';
+  const capital = country.capital ? (
+    <span>
+      <a
+        href={`https://en.wikipedia.org/wiki/Special:Search/${country.capital[0]}, ${countryNameUrl}`}
+      >
+        {country.capital[0]}
+      </a>
+    </span>
+  ) : (
+    'N/A'
+  );
+
+  console.log(country);
+
   let area = 'unavailable';
+
   if (country.area !== null) {
-    area = country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    area =
+      country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'sq km';
   }
+
+  let population = country.population
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  const createLinkList = (itemsArray, urlExtension) => {
+    const itemList = itemsArray.map((item, index) => {
+      let url = item.replaceAll(' ', '%20') + `%20${urlExtension}`;
+      let seperator = '';
+      if (index + 1 !== itemsArray.length) {
+        seperator = ', ';
+      }
+      return (
+        <span key={uuid()}>
+          <a href={`https://en.wikipedia.org/wiki/Special:Search/${url}`}>
+            {item}
+          </a>
+          {seperator}
+        </span>
+      );
+    });
+
+    return (
+      <p>
+        [{itemList.length}] {itemList}
+      </p>
+    );
+  };
 
   let languages = [];
-  if (country.languages) {
-    // console.log(country.languages);
-    languages = Object.values(country.languages);
-  } else {
-    console.log('No languages', country.name.common);
-  }
+  country.languages && (languages = Object.values(country.languages));
+  let languageList = createLinkList(languages, 'language');
 
-  let languagesList = languages.map((language, index) => {
-    let languageUrl = language.replaceAll(' ', '%20') + '%20language';
-    let seperator = '';
-    if (index + 1 !== languages.length) {
-      seperator = ', ';
+  const createCurrencyList = (itemsObject) => {
+    let itemsArray = [];
+    for (let key in itemsObject) {
+      itemsArray.push(itemsObject[key]);
     }
-    return (
-      <a
-        key={uuid()}
-        href={`https://en.wikipedia.org/wiki/Special:Search/${languageUrl}`}
-      >
-        {language}
-        {seperator}
-      </a>
-    );
-  });
 
-  let currencies = [];
-  if (!country.currencies) {
-    console.log('No currencies:', country.name.common);
-  } else {
-    Object.keys(country.currencies).forEach((currency) => {
-      const thisCurrency = country.currencies[currency];
-      if (thisCurrency.symbol !== null) {
-        currencies.push(thisCurrency.symbol + ' ' + thisCurrency.name);
-      } else {
-        currencies.push(thisCurrency.name);
+    let currencyList = [];
+    currencyList = itemsArray.map((currency, index) => {
+      const name = currency.symbol
+        ? currency.symbol + ' ' + currency.name
+        : currency.name;
+      const url = currency.name.replaceAll(' ', '%20');
+      let seperator = '';
+      if (index + 1 !== itemsArray.length) {
+        seperator = ', ';
       }
+      return (
+        <span key={uuid()}>
+          <a href={`https://en.wikipedia.org/wiki/Special:Search/${url}`}>
+            {name}
+          </a>
+          {seperator}
+        </span>
+      );
     });
-  }
 
-  // console.log(currencies);
+    return (
+      <p>
+        [{currencyList.length}] {currencyList}
+      </p>
+    );
+  };
 
-  // let currencyList = currencies.map((currency, index) => {
-  //   let currencyUrl = currency + '%20currency';
-  //   let seperator = '';
-  //   if (index + 1 !== currencies.length) {
-  //     seperator = ', ';
-  //   }
-  //   return (
-  //     <a
-  //       key={uuid()}
-  //       href={`https://en.wikipedia.org/wiki/Special:Search/${currencyUrl}`}
-  //     >
-  //       {currency}
-  //       {seperator}
-  //     </a>
-  //   );
-  // });
+  let currencyList = createCurrencyList(country.currencies);
 
-  // console.log(currencyList);
+  let timezoneList = country.timezones
+    ? createLinkList(country.timezones, '')
+    : 'N/A';
 
-  const timezones = [];
-  country.timezones.forEach((timezone) => {
-    timezones.push(' ' + timezone);
-  });
-
-  let domains = 'N/A';
-  if (country.tld) {
-    domains = country.tld.join(', ');
-  }
+  let domainList = country.tld ? createLinkList(country.tld, '') : 'N/A';
 
   let dialingCode = country.idd.root;
   if (country.idd.suffixes && country.idd.suffixes.length == 1) {
     dialingCode = dialingCode + country.idd.suffixes[0];
+  }
+
+  const dataMap = {
+    Capital: capital,
+    Area: area,
+    Population: population,
+    Languages: languageList,
+    Currencies: currencyList,
+    Timezones: timezoneList,
+    Domains: domainList
+  };
+
+  const dataList = [];
+
+  for (let key in dataMap) {
+    dataList.push(
+      <div key={uuid()} className='row'>
+        <div className='labels'>{key}</div>
+        <div className='data'>{dataMap[key]}</div>
+      </div>
+    );
   }
 
   const fallbackFlag = (e) => {
@@ -110,7 +144,6 @@ const Country = ({ country }) => {
           <h2 className='row countryName'>
             {country.name.common}&nbsp;({country.cca3})
           </h2>
-          {/* <div className='row countryNameNative'>{country.name.nativeName}</div> */}
           <div className='row countryNameOfficial'>{country.name.official}</div>
           <div className='row'>
             <img
@@ -122,93 +155,14 @@ const Country = ({ country }) => {
           </div>
         </a>
 
-        <div className='row'>
-          <div className='labels'>
-            <p>Capital</p>
-          </div>
-          <div className='data'>
-            {countryCapital ? (
-              <a
-                href={`https://en.wikipedia.org/wiki/Special:Search/${countryCapitalUrl}`}
-              >
-                <p>{countryCapital}</p>
-              </a>
-            ) : (
-              <p>N/A</p>
-            )}
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Area</p>
-          </div>
-          <div className='data'>
-            <p>{area} sq km</p>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Population</p>
-          </div>
-          <div className='data'>
-            <p>
-              {country.population
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            </p>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Languages</p>
-          </div>
-          <div className='data'>
-            <p>
-              [{languages.length}] {languagesList}
-            </p>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Currencies</p>
-          </div>
-          <div className='data'>
-            <p>
-              [{currencies.length}] {currencies.join(', ')}
-            </p>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Timezones</p>
-          </div>
-          <div className='data'>
-            <p>
-              [{timezones.length}]{timezones}
-            </p>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Domains</p>
-          </div>
-          <div className='data'>
-            <p>{domains}</p>
-          </div>
-        </div>
+        {dataList}
 
         <div className='row'>
           <div className='labels'>
             <p>Calling Code</p>
           </div>
           <div className='data'>
-            <p>{dialingCode}</p>
+            <p>{dialingCode || 'N/A'}</p>
           </div>
         </div>
       </div>
