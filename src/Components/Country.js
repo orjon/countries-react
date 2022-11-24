@@ -1,61 +1,27 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
-import noFlagImage from '../images/noFlag.png';
+import { wikiSearch } from '../Constants';
+import { formatUrl, formatNumber, createLinkList } from '../Utils/index';
+import CountryHeader from './CountryHeader';
+import DataRow from './DataRow';
 
 const Country = ({ country }) => {
-  const countryNameUrl = country.name.common.replaceAll(' ', '%20');
+  const countryNameUrl = formatUrl(country.name.common);
+
   const capital = country.capital ? (
-    <span>
-      <a
-        href={`https://en.wikipedia.org/wiki/Special:Search/${country.capital[0]}, ${countryNameUrl}`}
-      >
-        {country.capital[0]}
-      </a>
-    </span>
-  ) : (
-    'N/A'
-  );
+    <a href={`${wikiSearch}${country.capital[0]}, ${countryNameUrl}`}>
+      {country.capital[0]}
+    </a>
+  ) : undefined;
 
-  console.log(country);
+  const population = formatNumber(country.population);
+  const area = country.area && formatNumber(country.area) + ' sq km';
 
-  let area = 'unavailable';
+  let dialingCode = country.idd.root;
 
-  if (country.area !== null) {
-    area =
-      country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + 'sq km';
+  if (country.idd.suffixes && country.idd.suffixes.length === 1) {
+    dialingCode = dialingCode + country.idd.suffixes[0];
   }
-
-  let population = country.population
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  const createLinkList = (itemsArray, urlExtension) => {
-    const itemList = itemsArray.map((item, index) => {
-      let url = item.replaceAll(' ', '%20') + `%20${urlExtension}`;
-      let seperator = '';
-      if (index + 1 !== itemsArray.length) {
-        seperator = ', ';
-      }
-      return (
-        <span key={uuid()}>
-          <a href={`https://en.wikipedia.org/wiki/Special:Search/${url}`}>
-            {item}
-          </a>
-          {seperator}
-        </span>
-      );
-    });
-
-    return (
-      <p>
-        [{itemList.length}] {itemList}
-      </p>
-    );
-  };
-
-  let languages = [];
-  country.languages && (languages = Object.values(country.languages));
-  let languageList = createLinkList(languages, 'language');
 
   const createCurrencyList = (itemsObject) => {
     let itemsArray = [];
@@ -75,9 +41,7 @@ const Country = ({ country }) => {
       }
       return (
         <span key={uuid()}>
-          <a href={`https://en.wikipedia.org/wiki/Special:Search/${url}`}>
-            {name}
-          </a>
+          <a href={`${wikiSearch}${url}`}>{name}</a>
           {seperator}
         </span>
       );
@@ -92,79 +56,28 @@ const Country = ({ country }) => {
 
   let currencyList = createCurrencyList(country.currencies);
 
+  let languageList = country.languages
+    ? createLinkList(Object.values(country.languages), 'language')
+    : 'N/A';
+
   let timezoneList = country.timezones
     ? createLinkList(country.timezones, '')
     : 'N/A';
 
   let domainList = country.tld ? createLinkList(country.tld, '') : 'N/A';
 
-  let dialingCode = country.idd.root;
-  if (country.idd.suffixes && country.idd.suffixes.length == 1) {
-    dialingCode = dialingCode + country.idd.suffixes[0];
-  }
-
-  const dataMap = {
-    Capital: capital,
-    Area: area,
-    Population: population,
-    Languages: languageList,
-    Currencies: currencyList,
-    Timezones: timezoneList,
-    Domains: domainList
-  };
-
-  const dataList = [];
-
-  for (let key in dataMap) {
-    dataList.push(
-      <div key={uuid()} className='row'>
-        <div className='labels'>{key}</div>
-        <div className='data'>{dataMap[key]}</div>
-      </div>
-    );
-  }
-
-  const fallbackFlag = (e) => {
-    if (e.target.src !== noFlagImage) {
-      e.target.onerror = null;
-      e.target.src = noFlagImage;
-    }
-  };
-
   return (
-    <div
-      role='region'
-      aria-label={country.name.common}
-      className='card country'
-    >
+    <div aria-label={country.name.common} className='card country'>
+      <CountryHeader country={country} />
       <div className='details'>
-        <a
-          href={`https://en.wikipedia.org/wiki/Special:Search/${countryNameUrl}`}
-        >
-          <h2 className='row countryName'>
-            {country.name.common}&nbsp;({country.cca3})
-          </h2>
-          <div className='row countryNameOfficial'>{country.name.official}</div>
-          <div className='row'>
-            <img
-              className='flag shadow'
-              src={country.flags.svg}
-              onError={(e) => fallbackFlag(e)}
-              alt={`Flag of ${country.name.common}`}
-            />
-          </div>
-        </a>
-
-        {dataList}
-
-        <div className='row'>
-          <div className='labels'>
-            <p>Calling Code</p>
-          </div>
-          <div className='data'>
-            <p>{dialingCode || 'N/A'}</p>
-          </div>
-        </div>
+        <DataRow label='Capital' value={capital} />
+        <DataRow label='Population' value={population} />
+        <DataRow label='Area' value={area} />
+        <DataRow label='Currencies' value={currencyList} />
+        <DataRow label='Languages' value={languageList} />
+        <DataRow label='Domains' value={domainList} />
+        <DataRow label='Time zones' value={timezoneList} />
+        <DataRow label='Calling Code' value={dialingCode} />
       </div>
     </div>
   );

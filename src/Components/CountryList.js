@@ -83,7 +83,9 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
 
   if (countries.length !== 0) {
     countryList = getSearchedCountries(searchString).map((country) => {
-      return <Country key={uuid()} country={country} />;
+      return (
+        <Country key={uuid()} countries={countries.length} country={country} />
+      );
     });
   }
 
