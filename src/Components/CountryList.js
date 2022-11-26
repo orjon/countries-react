@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
-import Country from './Country';
-import { arraySort } from '../Utils';
 import axios from 'axios';
+import Country from './Country';
+import { sourceUrl } from '../Constants';
+import { arraySort } from '../Utils/index';
 
 const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
   const [countries, setCountries] = useState('');
 
-  let countryList = dataLocal ? dataLocal : [];
+  let countriesFiltered = dataLocal ? dataLocal : [];
 
-  let url = `https://restcountries.com/v3.1/${filter}`;
+  let url = `${sourceUrl}${filter}`;
 
   useEffect(() => {
     const getFilteredCountries = async (filter) => {
@@ -50,20 +51,12 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
         regExSearch.test(country.demonym) ||
         regExSearch.test(country.name.nativeName) ||
         regExSearch.test(languages)
-        // regExWordSearch.test(country.topLevelDomain.join(' '))
       );
-      // regExWordSearch.test(
-      //   country.currencies
-      //     .map((currency) => {
-      //       return currency.name;
-      //     })
-      //     .join(' ')
-      // )
     });
   };
 
   if (countries.length !== 0) {
-    countryList = getSearchedCountries(searchString).map((country) => {
+    countriesFiltered = getSearchedCountries(searchString).map((country) => {
       return (
         <Country key={uuid()} countries={countries.length} country={country} />
       );
@@ -72,7 +65,7 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
 
   return (
     <main aria-label='Country list' className='CountryList'>
-      {countryList}
+      {countriesFiltered}
     </main>
   );
 };
