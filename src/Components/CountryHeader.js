@@ -11,6 +11,7 @@ const CounrtryHeader = ({ country }) => {
       e.target.src = noFlagImage;
     }
   };
+
   return (
     <div>
       <a href={`${wikiSearch}${countryNameUrl}`}>
@@ -22,7 +23,7 @@ const CounrtryHeader = ({ country }) => {
       <div className='row'>
         <a href={`${wikiSearch}${countryNameUrl}`}>
           <img
-            className='flag shadow'
+            className='flag'
             src={country.flags.svg}
             onError={(e) => fallbackFlag(e)}
             alt={`Flag of ${country.name.common}`}

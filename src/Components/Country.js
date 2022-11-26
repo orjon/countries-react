@@ -1,20 +1,29 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
-import { wikiSearch } from '../Constants';
-import { formatUrl, formatNumber, createLinkList } from '../Utils/index';
+
+import {
+  formatUrl,
+  formatNumber,
+  createLinkList,
+  createCurrencyList,
+  createLink
+} from '../Utils/index';
 import CountryHeader from './CountryHeader';
 import DataRow from './DataRow';
 
 const Country = ({ country }) => {
   const countryNameUrl = formatUrl(country.name.common);
 
-  const capital = country.capital ? (
-    <a href={`${wikiSearch}${country.capital[0]}, ${countryNameUrl}`}>
-      {country.capital[0]}
-    </a>
-  ) : undefined;
+  const capital = country.capital
+    ? createLink(
+        country.capital[0],
+        `${country.capital[0]},%20${countryNameUrl}`
+      )
+    : undefined;
 
-  const population = formatNumber(country.population);
+  const population = country.population
+    ? formatNumber(country.population)
+    : undefined;
+
   const area = country.area && formatNumber(country.area) + ' sq km';
 
   let dialingCode = country.idd.root;
@@ -23,48 +32,17 @@ const Country = ({ country }) => {
     dialingCode = dialingCode + country.idd.suffixes[0];
   }
 
-  const createCurrencyList = (itemsObject) => {
-    let itemsArray = [];
-    for (let key in itemsObject) {
-      itemsArray.push(itemsObject[key]);
-    }
-
-    let currencyList = [];
-    currencyList = itemsArray.map((currency, index) => {
-      const name = currency.symbol
-        ? currency.symbol + ' ' + currency.name
-        : currency.name;
-      const url = currency.name.replaceAll(' ', '%20');
-      let seperator = '';
-      if (index + 1 !== itemsArray.length) {
-        seperator = ', ';
-      }
-      return (
-        <span key={uuid()}>
-          <a href={`${wikiSearch}${url}`}>{name}</a>
-          {seperator}
-        </span>
-      );
-    });
-
-    return (
-      <p>
-        [{currencyList.length}] {currencyList}
-      </p>
-    );
-  };
-
   let currencyList = createCurrencyList(country.currencies);
 
   let languageList = country.languages
     ? createLinkList(Object.values(country.languages), 'language')
-    : 'N/A';
+    : undefined;
 
   let timezoneList = country.timezones
     ? createLinkList(country.timezones, '')
-    : 'N/A';
+    : undefined;
 
-  let domainList = country.tld ? createLinkList(country.tld, '') : 'N/A';
+  let domainList = country.tld ? createLinkList(country.tld, '') : undefined;
 
   return (
     <div aria-label={country.name.common} className='card country'>

@@ -5,20 +5,17 @@ const RegionSearch = ({ filter, searchString, setSearchString }) => {
     all: 'All Countries',
     'region/africa': 'Africa',
     'region/americas': 'Americas',
+    'region/antarctic': 'Antarctic',
     'region/asia': 'Asia',
     'region/europe': 'Europe',
-    'region/oceania': 'Oceania',
-    'regionalbloc/eu': 'EU (European Union)',
-    'regionalbloc/nafta': 'NAFTA (North American Free Trade Agreement)',
-    'regionalbloc/usan': 'USAN (Union of South American Nations)',
-    'regionalbloc/au': 'AU (African Union)',
-    'regionalbloc/pa': 'PA (Pacific Alliance)',
-    'regionalbloc/caricom': 'CARICOM (Caribbean Community)'
+    'region/oceania': 'Oceania'
   };
 
   return (
     <div className='formField'>
-      <label htmlFor='regionSearch'>Search in {regionMap[filter]}...</label>
+      <label htmlFor='regionSearch'>
+        Search within: {regionMap[filter]}...
+      </label>
       <input
         id='regionSearch'
         className='shadow'

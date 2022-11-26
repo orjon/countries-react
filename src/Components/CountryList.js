@@ -25,29 +25,10 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
         console.log('Using local data...');
       }
 
-      // console.log(response.data);
-
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
-      // Filter out UK because of Brexit
-      // if (filter === 'regionalbloc/eu') {
-      //   correctedResponse = correctedResponse.filter(
-      //     (country) => country.nativeName !== 'United Kingdom'
-      //   );
-      // }
       setCountries(arraySort(response.data, 'name.common'));
     };
-
-    // const localFilter = (filter) => {
-    //   //filter local
-    // };
-
-    // if (dataLocal) {
-    //   localFilter(filter);
-    // } else {
-    //   getFilteredCountries(filter);
-    // }
-
     getFilteredCountries(filter);
   }, [filter, setResponseTime, setCountries]);
 

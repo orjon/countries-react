@@ -1,11 +1,15 @@
 $devBorder: 0pt;
 $spacing: 15px;
 
+$cardWidthMin: 300px;
+
 $fontDefault: 0.8em;
 $lineHeight: 15px;
 
-$colorCardBackground: #282c34;
-$colorDataBackground: $colorCardBackground;
+$colorLightGrey: #2a2f38;
+
+$colorCardBackground: $colorLightGrey;
+$colorDataBackground: $colorLightGrey;
 
 $textWhite: #ddd;
 $textWhiteHover: #fff;
@@ -19,7 +23,7 @@ $textOffWhiteHover: #fff;
 }
 
 :root {
-  background-color: #202329;
+  background-color: #222;
 }
 
 h1 {
@@ -60,7 +64,7 @@ a {
 
 .AppHeader {
   border: $devBorder solid yellow;
-  min-width: 350px;
+  min-width: $cardWidthMin;
   width: 100%;
   margin: $spacing 0;
   user-select: none;
@@ -80,41 +84,25 @@ a {
 .CountryList {
   padding: $spacing/5;
   overflow-y: scroll;
-  flex: 1;
-  min-width: 350px;
+  min-width: $cardWidthMin;
   border: $devBorder solid yellow;
   display: grid;
   grid-template-columns: 1fr;
   grid-column-gap: $spacing;
   grid-row-gap: $spacing;
-}
-
-@media screen and (min-width: 750px) {
-  .CountryList {
+  @media screen and (min-width: 750px) {
     grid-template-columns: 1fr 1fr;
   }
-}
-
-@media screen and (min-width: 1110px) {
-  .CountryList {
+  @media screen and (min-width: 1110px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-}
-
-@media screen and (min-width: 1660px) {
-  .CountryList {
+  @media screen and (min-width: 1660px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-}
-
-@media screen and (min-width: 2060px) {
-  .CountryList {
+  @media screen and (min-width: 2060px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
-}
-
-@media screen and (min-width: 2460px) {
-  .CountryList {
+  @media screen and (min-width: 2460px) {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
@@ -173,8 +161,9 @@ a {
         flex-direction: column;
         align-items: flex-start;
         label {
-          font-size: 11pt;
           margin-bottom: 5px;
+          font-size: $fontDefault;
+          font-weight: 600;
         }
         #regionSelect,
         #regionSearch {
@@ -183,6 +172,7 @@ a {
           background-color: $colorCardBackground;
           color: $textWhite;
           height: 25px;
+          font-size: $fontDefault;
           &::placeholder {
             color: $textWhite;
           }
@@ -214,7 +204,7 @@ a {
       font-size: 16px;
     }
 
-    .labels {
+    .label {
       font-size: $fontDefault;
       width: 35%;
       align-self: flex-start;
@@ -231,7 +221,6 @@ a {
       text-align: left;
       line-height: $lineHeight;
       color: $textOffWhite;
-      background-color: $colorDataBackground;
       user-select: all;
       a:hover {
         color: $textOffWhiteHover;
@@ -240,8 +229,9 @@ a {
 
     .flag {
       margin: 15px auto;
-      width: 50%;
-      // box-shadow: 0 0 15px 0 rgba(200, 200, 200, 0.2);
+      width: 75%;
+      max-width: 500px;
+      max-height: 400px;
     }
     p {
       border: $devBorder solid orange;
