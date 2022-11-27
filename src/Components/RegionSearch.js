@@ -17,8 +17,7 @@ const RegionSearch = ({ filter, searchString, setSearchString }) => {
         Search within: {regionMap[filter]}...
       </label>
       <input
-        id='regionSearch'
-        className='shadow'
+        className='regionSearch shadow'
         name='regionSearch'
         type='text'
         placeholder='Search...'

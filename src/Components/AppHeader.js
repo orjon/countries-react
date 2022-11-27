@@ -25,26 +25,24 @@ const AppHeader = ({
     </Fragment>
   );
   return (
-    <header className='AppHeader'>
-      <div className='card'>
-        <div className='row titleBar'>
-          <img className='logo2' src={Logo} alt='website logo' />
-          <div className='titleWrapper'>
-            <h1 className='appTitle'>World Countries</h1>
-            <div className='responseTime'>{responseTime}</div>
-            <form role='search' className='row searchBar medium'>
-              {searchBars}
-            </form>
-          </div>
-          <img className='logo' src={Logo} alt='website logo' />
-          <form role='search' className='row searchBar large'>
+    <header className='card AppHeader'>
+      <div className='row titleBar'>
+        <img className='logo2' src={Logo} alt='website logo' />
+        <div className='titleWrapper'>
+          <h1 className='appTitle'>World Countries</h1>
+          <div className='responseTime'>{responseTime}</div>
+          <form role='search' className='row searchBar medium'>
             {searchBars}
           </form>
         </div>
-        <form role='search' className='row searchBar small'>
+        <img className='logo' src={Logo} alt='website logo' />
+        <form role='search' className='row searchBar large'>
           {searchBars}
         </form>
       </div>
+      <form role='search' className='row searchBar small'>
+        {searchBars}
+      </form>
     </header>
   );
 };

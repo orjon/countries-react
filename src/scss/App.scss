@@ -45,27 +45,9 @@ a {
   margin: 0 $spacing;
 }
 
-.AppHeader {
-  border: $devBorder solid yellow;
-  min-width: $cardWidthMin;
-  width: 100%;
-  margin: $spacing 0;
-  user-select: none;
-
-  .appTitle {
-    user-select: all;
-    cursor: default;
-    text-align: left;
-  }
-
-  .responseTime {
-    font-size: 10pt;
-    color: $textOffWhite;
-    font-weight: 400;
-  }
-}
-
 .CountryList {
+  padding: $spacing 0;
+  width: 100%;
   overflow-y: scroll;
   min-width: $cardWidthMin;
   border: $devBorder solid yellow;
@@ -100,15 +82,175 @@ a {
   font-size: 12pt;
   border: 1px solid #2f343f;
   background-color: $colorCardBackground;
-  border-radius: 15px;
-  box-shadow: 0 0 5px 0 rgba(200, 200, 200, 0.1);
-  height: 100%;
+  border-radius: $cardCorner;
   padding: $spacing2 $spacing;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
-  .details {
+.AppHeader {
+  z-index: 1;
+  border: $devBorder solid yellow;
+  min-width: $cardWidthMin;
+  width: 100%;
+  margin: $spacing 0;
+  margin-bottom: unset;
+  user-select: none;
+  box-shadow: 20px 8px 8px $colorBackground, -20px 8px 8px $colorBackground,
+    0 0 5px 0 rgba(0, 0, 0, 0.25);
+  .titleBar {
+    justify-content: space-between;
+    align-items: center;
+    .appTitle {
+      user-select: all;
+      cursor: default;
+      text-align: left;
+    }
+
+    .responseTime {
+      font-size: 10pt;
+      color: $textOffWhite;
+      font-weight: 400;
+    }
+    .logo {
+      height: 75px;
+      @media (min-width: $breakpointMenuLarge) {
+        height: 100px;
+      }
+      @media (min-width: $breakpointMenuXLarge) {
+        display: none;
+      }
+    }
+    .logo2 {
+      display: none;
+      height: 75px;
+      margin-right: $spacing;
+      @media (min-width: $breakpointMenuXLarge) {
+        display: flex;
+      }
+    }
+    .titleWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+      @media (min-width: $breakpointMenuLarge) {
+        margin-right: $spacing2;
+      }
+    }
+  }
+
+  .searchBar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    &.small {
+      @media (min-width: $breakpointMenuMedium) {
+        flex-direction: row;
+        margin-top: $spacing;
+        .formField:first-child {
+          margin-right: $spacing;
+        }
+      }
+      @media (min-width: $breakpointMenuLarge) {
+        display: none;
+      }
+    }
+    &.medium {
+      display: none;
+      padding-right: $spacing;
+      margin-top: $spacing;
+      flex-direction: row;
+      padding-right: unset;
+      max-width: 450px;
+      .formField {
+        margin-top: unset;
+      }
+      .formField:first-child {
+        margin-right: $spacing;
+      }
+      @media (min-width: $breakpointMenuLarge) {
+        display: flex;
+      }
+      @media (min-width: $breakpointMenuXLarge) {
+        display: none;
+      }
+    }
+    &.large {
+      display: none;
+      max-width: 450px;
+      @media (min-width: $breakpointMenuXLarge) {
+        display: flex;
+        flex-direction: row;
+        .formField:first-child {
+          margin-right: $spacing;
+        }
+      }
+    }
+    .formField {
+      margin-top: $spacing/2;
+      width: 100%;
+      border: $devBorder solid lime;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      label {
+        margin-bottom: 5px;
+        font-size: $fontDefault;
+        font-weight: 600;
+      }
+      .regionSelect,
+      .regionSearch {
+        width: 100%;
+        border: 1px solid #2f343f;
+        background-color: $colorCardBackground;
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          background-color: red;
+        }
+        color: $textWhite;
+        height: 25px;
+        font-size: $fontDefault;
+        &::placeholder {
+          color: $textWhite;
+        }
+      }
+    }
+  }
+}
+
+.row {
+  border: $devBorder solid lightblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.country {
+  &-header {
+    width: 100%;
+    .flagWrapper {
+      height: 200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .flag {
+        padding: $spacing2;
+        margin: 15px auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+
+  &-details {
     width: 100%;
     height: 100%;
     border: $devBorder solid orange;
@@ -116,172 +258,41 @@ a {
     flex-direction: column;
   }
 
-  .row {
-    border: $devBorder solid lightblue;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  .countryName {
     justify-content: center;
-    width: 100%;
+    margin-bottom: 5px;
+  }
 
-    &.titleBar {
-      justify-content: space-between;
-      align-items: center;
-      .logo {
-        height: 75px;
-        @media (min-width: $breakpointMenuLarge) {
-          height: 100px;
-        }
-        @media (min-width: $breakpointMenuXLarge) {
-          display: none;
-        }
-      }
-      .logo2 {
-        display: none;
-        height: 75px;
-        margin-right: $spacing;
-        @media (min-width: $breakpointMenuXLarge) {
-          display: flex;
-        }
-      }
-      .titleWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        flex-grow: 1;
-        @media (min-width: $breakpointMenuLarge) {
-          margin-right: $spacing2;
-        }
-      }
-    }
+  .countryNameOffical {
+    justify-content: center;
+    font-size: 16px;
+  }
 
-    &.searchBar {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      max-width: 600px;
-      &.small {
-        @media (min-width: $breakpointMenuMedium) {
-          flex-direction: row;
-          margin-top: $spacing;
-          .formField:first-child {
-            margin-right: $spacing;
-          }
-        }
-        @media (min-width: $breakpointMenuLarge) {
-          display: none;
-        }
-      }
-      &.medium {
-        display: none;
-        padding-right: $spacing;
-        margin-top: $spacing;
-        flex-direction: row;
-        padding-right: unset;
-        max-width: 450px;
-        .formField {
-          margin-top: unset;
-        }
-        .formField:first-child {
-          margin-right: $spacing;
-        }
-        @media (min-width: $breakpointMenuLarge) {
-          display: flex;
-        }
-        @media (min-width: $breakpointMenuXLarge) {
-          display: none;
-        }
-      }
-      &.large {
-        display: none;
-        max-width: 450px;
-        @media (min-width: $breakpointMenuXLarge) {
-          display: flex;
-          flex-direction: row;
-          .formField:first-child {
-            margin-right: $spacing;
-          }
-        }
-      }
-      .formField {
-        margin-top: $spacing/2;
-        width: 100%;
-        border: $devBorder solid lime;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        label {
-          margin-bottom: 5px;
-          font-size: $fontDefault;
-          font-weight: 600;
-        }
-        #regionSelect,
-        #regionSearch {
-          width: 100%;
-          border: 1px solid #2f343f;
-          background-color: $colorCardBackground;
-          color: $textWhite;
-          height: 25px;
-          font-size: $fontDefault;
-          &::placeholder {
-            color: $textWhite;
-          }
-        }
-      }
-    }
-
-    &.countryName {
-      justify-content: center;
-      margin-bottom: 5px;
-    }
-
-    &.countryNameOffical {
-      justify-content: center;
-      font-size: 16px;
-    }
-
-    .label {
-      font-size: $fontDefault;
-      width: 35%;
-      align-self: flex-start;
-      text-align: right;
-      padding-right: 7px;
-      font-weight: 600;
-      vertical-align: top;
-      line-height: $lineHeight;
-      user-select: none;
-    }
-    .data {
-      font-size: $fontDefault;
-      flex: 1;
-      text-align: left;
-      line-height: $lineHeight;
-      color: $textOffWhite;
-      user-select: all;
-      a:hover {
-        color: $textOffWhiteHover;
-      }
-    }
-
-    .flagWrapper {
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      .flag {
-        margin: 15px auto;
-        max-width: 75%;
-        max-height: 100%;
-      }
-    }
-
-    p {
-      border: $devBorder solid orange;
-      word-wrap: break-word;
+  .label {
+    font-size: $fontDefault;
+    width: 35%;
+    align-self: flex-start;
+    text-align: right;
+    padding-right: 7px;
+    font-weight: 600;
+    vertical-align: top;
+    line-height: $lineHeight;
+    user-select: none;
+  }
+  .data {
+    font-size: $fontDefault;
+    flex: 1;
+    text-align: left;
+    line-height: $lineHeight;
+    color: $textOffWhite;
+    user-select: all;
+    a:hover {
+      color: $textOffWhiteHover;
     }
   }
-}
 
-.countryFullWidth {
-  grid-column: 1 / 4;
+  p {
+    border: $devBorder solid orange;
+    word-wrap: break-word;
+  }
 }

@@ -46,7 +46,7 @@ const Country = ({ country }) => {
   return (
     <div aria-label={country.name.common} className='card country'>
       <CountryHeader country={country} />
-      <div className='details'>
+      <div className='country-details'>
         <DataRow label='Capital' value={capital} />
         <DataRow label='Population' value={population} />
         <DataRow label='Area' value={area} />

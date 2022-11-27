@@ -13,7 +13,7 @@ const CountryHeader = ({ country }) => {
   };
 
   return (
-    <div className='countryHeader'>
+    <div className='country-header'>
       <h2 className='row countryName'>
         <a href={wikiLink}>
           {country.name.common} ({country.cca3})
@@ -36,5 +36,12 @@ const CountryHeader = ({ country }) => {
     </div>
   );
 };
+
+// let flagWrapper = document.querySelector('.flagWrapper');
+// let svgWidth = flagWrapper.offsetWidth;
+
+// if (svgWidth == '0px') {
+//   document.querySelector('.flagSub').classList.remove('hidden');
+// }
 
 export default CountryHeader;
