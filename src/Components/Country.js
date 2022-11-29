@@ -42,7 +42,7 @@ const Country = ({ country }) => {
     : undefined;
 
   let domainList = country.tld ? createLinkList(country.tld, '') : undefined;
-
+  console.log('country.name.common', country.name.common);
   return (
     <div aria-label={country.name.common} className='card country'>
       <CountryHeader country={country} />
@@ -54,7 +54,7 @@ const Country = ({ country }) => {
         <DataRow label='Languages' value={languageList} />
         <DataRow label='Domains' value={domainList} />
         <DataRow label='Time zones' value={timezoneList} />
-        <DataRow label='Calling Code' value={dialingCode} />
+        <DataRow label='Telephone Code' value={dialingCode} />
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const App = () => {
   const [responseTime, setResponseTime] = useState('Fetching data...');
   const [filter, setFilter] = useState('all');
   const [searchString, setSearchString] = useState('');
+  const [sortBy, setSortBy] = useState('name');
   const [dataLocal, setdataLocal] = useState('');
 
   return (
@@ -17,6 +18,8 @@ const App = () => {
         setFilter={setFilter}
         searchString={searchString}
         setSearchString={setSearchString}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
         dataLocal={dataLocal}
         setdataLocal={setdataLocal}
       />
@@ -24,6 +27,7 @@ const App = () => {
         setResponseTime={setResponseTime}
         filter={filter}
         searchString={searchString}
+        sortBy={sortBy}
         dataLocal={dataLocal}
       />
     </div>

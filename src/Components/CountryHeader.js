@@ -37,11 +37,4 @@ const CountryHeader = ({ country }) => {
   );
 };
 
-// let flagWrapper = document.querySelector('.flagWrapper');
-// let svgWidth = flagWrapper.offsetWidth;
-
-// if (svgWidth == '0px') {
-//   document.querySelector('.flagSub').classList.remove('hidden');
-// }
-
 export default CountryHeader;

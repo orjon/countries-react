@@ -1,5 +1,6 @@
 import { React, Fragment } from 'react';
 import RegionSelect from './RegionSelect';
+import RegionSort from './RegionSort';
 import RegionSearch from './RegionSearch';
 import Logo from '../images/logo.png';
 
@@ -7,6 +8,8 @@ const AppHeader = ({
   responseTime,
   filter,
   setFilter,
+  sortBy,
+  setSortBy,
   searchString,
   setSearchString
 }) => {
@@ -17,11 +20,13 @@ const AppHeader = ({
         setFilter={setFilter}
         setSearchString={setSearchString}
       />
+
       <RegionSearch
         filter={filter}
         searchString={searchString}
         setSearchString={setSearchString}
       />
+      <RegionSort sortBy={sortBy} setSortBy={setSortBy} />
     </Fragment>
   );
   return (

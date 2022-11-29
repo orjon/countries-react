@@ -5,7 +5,13 @@ import Country from './Country';
 import { sourceUrl } from '../Constants';
 import { arraySort } from '../Utils/index';
 
-const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
+const CountryList = ({
+  setResponseTime,
+  filter,
+  searchString,
+  sortBy,
+  dataLocal
+}) => {
   const [countries, setCountries] = useState('');
 
   let countriesFiltered = dataLocal ? dataLocal : [];
@@ -28,10 +34,10 @@ const CountryList = ({ setResponseTime, filter, searchString, dataLocal }) => {
 
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
-      setCountries(arraySort(response.data, 'name.common'));
+      setCountries(arraySort(response.data, sortBy));
     };
     getFilteredCountries(filter);
-  }, [filter, setResponseTime, setCountries]);
+  }, [filter, setResponseTime, sortBy, setCountries]);
 
   const getSearchedCountries = (searchString) => {
     const regExSearch = new RegExp(searchString, 'i');
