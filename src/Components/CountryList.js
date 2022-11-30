@@ -18,6 +18,10 @@ const CountryList = ({
 
   let url = `${sourceUrl}${filter}`;
 
+  const sanitizeResponse = (data) => {
+    console.log(data);
+  };
+
   useEffect(() => {
     const getFilteredCountries = async (filter) => {
       let response = undefined;
@@ -31,11 +35,14 @@ const CountryList = ({
         console.log(error.response.data.error);
         console.log('Using local data...');
       }
-
       t1 = performance.now();
       setResponseTime('Response time: ' + ((t1 - t0) / 1000).toFixed(3) + 's');
+      // console.log(response.data);
+      sanitizeResponse(response.data);
       setCountries(arraySort(response.data, sortBy));
+      // console.log(countries);
     };
+    console.log('Getting data...');
     getFilteredCountries(filter);
   }, [filter, setResponseTime, sortBy, setCountries]);
 

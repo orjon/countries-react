@@ -2,7 +2,9 @@ import { v4 as uuid } from 'uuid';
 import { wikiSearch } from '../Constants';
 
 export const arraySort = (arrayToSort, sortBy) => {
-  return arrayToSort.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : -1));
+  return arrayToSort.sort((a, b) =>
+    a[sortBy] > b[sortBy] ? 1 : b[sortBy] > a[sortBy] ? -1 : 0
+  );
 };
 
 export const formatUrl = (string, urlExtension) => {
@@ -77,4 +79,11 @@ export const createCurrencyList = (currencies) => {
       [{currencyList.length}] {currencyList}
     </p>
   );
+};
+
+export const sanitizeResponse = (data) => {
+  return {
+    population: data.population,
+    name: data.name.common ? data.name.common : 'Naaaaah'
+  };
 };

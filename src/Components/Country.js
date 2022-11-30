@@ -42,7 +42,8 @@ const Country = ({ country }) => {
     : undefined;
 
   let domainList = country.tld ? createLinkList(country.tld, '') : undefined;
-  console.log('country.name.common', country.name.common);
+  // console.log('country.name.common', country.name.common);
+  // console.log('country.name', country.name);
   return (
     <div aria-label={country.name.common} className='card country'>
       <CountryHeader country={country} />

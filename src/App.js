@@ -7,7 +7,7 @@ const App = () => {
   const [responseTime, setResponseTime] = useState('Fetching data...');
   const [filter, setFilter] = useState('all');
   const [searchString, setSearchString] = useState('');
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState('name.common');
   const [dataLocal, setdataLocal] = useState('');
 
   return (
